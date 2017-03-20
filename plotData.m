@@ -6,11 +6,12 @@ function plotData( X, y, levels )
     xlabel('Average Time (1-60)');
     ylabel('Average Accuracy (1-100)');
     for l=levels
-        disp(l);
+        levels(1,l) = num2str(l);
         class = find(y == l);
-        plot(X(class, 1), X(class,2),'+','lineWidth', 2 ,'MarkerSize', 7);
+        plot(X(class, 1), X(class,2),'+','lineWidth', 2 ,'MarkerSize', 7', ...
+            'DisplayName', sprintf('Level: %d', l));
     end
-    legend('1', '2', '3', '4', '5', '6', '7', '8');
+    legend('-DynamicLegend');
     hold off;
 
 end

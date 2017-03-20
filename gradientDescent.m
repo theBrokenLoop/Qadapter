@@ -1,6 +1,6 @@
-function [theta, J_hist] = gradientDescent(X, y, theta, alpha)
+function [theta, J_hist] = gradientDescent(X, y, theta, alpha, iters)
     m = length(y);
-    num_iters = 400;
+    num_iters = iters;
     J_hist = zeros(num_iters, 1);
     for i=1:num_iters
         [J, grad] = costFunction(X,y,theta);

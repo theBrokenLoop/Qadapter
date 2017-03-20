@@ -2,6 +2,7 @@
 clc;
 clear;
 %% Begins %%
+disp('------------ Preparing data -------------');
 data = load('./datasets/levelsData.txt');
 X_unpadded = data(:, [1 2]);
 y = data(:, 3);

@@ -15,7 +15,9 @@ plotData(X, y, levels);
 %% Manipulation for y according to classes present in data %%
 
 X = [ ones(size(X,1),1) X_norm ];
-theta = zeros(size(X,2),1);    
+theta = zeros(size(X,2),1);
+thetas = zeros(length(levels), length(theta));
+costs = zeros(length(levels),1);
 for l=levels
     fprintf('------- Using Level %d --------\n', l)
     y_new = y == l; % got logical y
@@ -23,7 +25,8 @@ for l=levels
     options = optimset('GradObj', 'on', 'MaxIter', 400);
     
     [theta, cost] = fminunc(@(t)(costFunction(X,y_new,t)), theta, options);
-    theta
+    thetas(l,:) = theta';
+    costs(l,1) = cost;
     fprintf('Cost at above theta is %f\n', cost);
 %     pos = find(y_new == 1);
 %     neg = find(y_new == 0);
@@ -31,6 +34,13 @@ for l=levels
 %     plot(X(pos,1), X(pos,2), '+', 'MarkerSize', 7, 'LineWidth', 2 );
 %     plot(X(neg,1), X(neg,2), 'o', 'MarkerSize', 7, 'LineWidth', 2 );
 %     hold off;
+end
+thetas
+costs
+x = [1 (3-mu(1,1))/sigma(1,1) (100-mu(1,2))/sigma(1,2)];
+for l=levels
+    prob = sigmoid(thetas(l,:)*x');
+    fprintf('For Level %d Prob = %f\n',l,prob);
 end
 return;
 %%

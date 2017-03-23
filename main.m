@@ -1,10 +1,10 @@
 %% Init Driver Code %%
-clc;
-clear;
+% clc;
+% clear;
 %% Begins %%
 
 disp('------------ Preparing data -------------');
-data = load('./datasets/levelsData.txt');
+data = load('./datasets/levelsData3.txt');
 X = data(:, [1 2]);
 y = data(:, 3);
 levels = [1:8];
@@ -35,26 +35,12 @@ for l=levels
 %     plot(X(neg,1), X(neg,2), 'o', 'MarkerSize', 7, 'LineWidth', 2 );
 %     hold off;
 end
-thetas
-costs
-x = [1 (3-mu(1,1))/sigma(1,1) (100-mu(1,2))/sigma(1,2)];
+x = [1 (7-mu(1,1))/sigma(1,1) (80-mu(1,2))/sigma(1,2)];
 for l=levels
     prob = sigmoid(thetas(l,:)*x');
     fprintf('For Level %d Prob = %f\n',l,prob);
 end
-return;
-%%
-
-[J, grad] = costFunction(X, y, theta);
-%% Using Function minimization unconstrained
-
-options = optimset('GradObj', 'on', 'MaxIter', 200);
-[th, cost] = fminunc(@(t)(costFunction(X,y,t)), theta, options);
-prob = sigmoid(th'*[1 (3-mu(1,1))/sigma(1,1) (100-mu(1,2))/sigma(1,2)]');
-if prob >= 0.5
-    disp('Level 1');
-else
-    disp('Level 0');
-end
-p = sigmoid(X*th) >= 0.5;
-fprintf('Train Accuracy: %f\n', mean(double(p == y)) * 100);
+predicted_level = predict(X_norm,thetas, levels);
+size(predicted_level)
+size(y)
+fprintf('Train Accuracy: %f\n', mean(double(predicted_level == y)) * 100);

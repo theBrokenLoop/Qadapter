@@ -1,5 +1,4 @@
 function predicted_level = predict(X, thetas, levels)
-    size(thetas)
     predicted_level = zeros(size(X,1),1);
     
     fprintf('Loop for i = %d\n',size(X,1));

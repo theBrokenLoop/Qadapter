@@ -43,12 +43,8 @@ fprintf('Train Accuracy: %f\n', mean(double(predicted_level == y)) * 100);
 
 X = load('datasets/testSet.txt');
 size(X)
-mu = mu(1:size(X,1),:)
-sigma = sigma(1:size(X,1),:)
-size(mu)
-size(sigma)
+mu = mu(1:size(X,1),:);
+sigma = sigma(1:size(X,1),:);
 X = (X - mu)./sigma;
-
-
 predicted_level = predict(X,thetas, levels)
 

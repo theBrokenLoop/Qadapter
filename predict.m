@@ -1,4 +1,5 @@
 function predicted_level = predict(X, thetas, levels)
+    size(thetas)
     predicted_level = zeros(size(X,1),1);
     
     fprintf('Loop for i = %d\n',size(X,1));
@@ -10,7 +11,7 @@ function predicted_level = predict(X, thetas, levels)
             probs(1,l) = prob;
 %             fprintf('For Level %d Prob = %f\n',l,prob);
         end
-%         fprintf('For %d =  %d\n',i,find(probs == max(probs)));
+        fprintf('For %d =  %d\n',i,find(probs == max(probs)));
         predicted_level(i,1) = find(probs == max(probs));
     end
     

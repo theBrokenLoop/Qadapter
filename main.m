@@ -4,7 +4,7 @@
 %% Begins %%
 
 disp('------------ Preparing data -------------');
-data = load('./datasets/levelsData3.txt');
+data = load('./datasets/levelsData1.txt');
 X = data(:, [1 2]);
 y = data(:, 3);
 levels = [1:8];
@@ -23,7 +23,6 @@ for l=levels
     y_new = y == l; % got logical y
     [J, grad] = costFunction(X, y_new, theta);
     options = optimset('GradObj', 'on', 'MaxIter', 400);
-    
     [theta, cost] = fminunc(@(t)(costFunction(X,y_new,t)), theta, options);
     thetas(l,:) = theta';
     costs(l,1) = cost;
@@ -35,12 +34,21 @@ for l=levels
 %     plot(X(neg,1), X(neg,2), 'o', 'MarkerSize', 7, 'LineWidth', 2 );
 %     hold off;
 end
-x = [1 (7-mu(1,1))/sigma(1,1) (80-mu(1,2))/sigma(1,2)];
-for l=levels
-    prob = sigmoid(thetas(l,:)*x');
-    fprintf('For Level %d Prob = %f\n',l,prob);
-end
+%% Training Data Accuracy %%
+
 predicted_level = predict(X_norm,thetas, levels);
-size(predicted_level)
-size(y)
 fprintf('Train Accuracy: %f\n', mean(double(predicted_level == y)) * 100);
+
+%% Test Set
+
+X = load('datasets/testSet.txt');
+size(X)
+mu = mu(1:size(X,1),:)
+sigma = sigma(1:size(X,1),:)
+size(mu)
+size(sigma)
+X = (X - mu)./sigma;
+
+
+predicted_level = predict(X,thetas, levels)
+

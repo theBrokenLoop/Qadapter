@@ -1,6 +1,6 @@
 %% Init Driver Code %%
-% clc;
-% clear;
+clc;
+clear;
 %% Begins %%
 
 disp('------------ Preparing data -------------');
